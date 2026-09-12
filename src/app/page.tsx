@@ -1,29 +1,21 @@
-import CurrentlyBuilding from "@/components/sections/currently-building";
-import EducationFoundation from "@/components/sections/education-foundation";
-import EngineeringNotes from "@/components/sections/engineer-notes";
-import ExperienceTimeline from "@/components/sections/experience-timeline";
-import FinalCTA from "@/components/sections/final-cta";
-import { Hero } from "@/components/sections/hero";
-import ImpactSection from "@/components/sections/impact";
-import MarqueeStrip from "@/components/sections/marquee-strip";
 import About from "@/components/sections/about";
-import EngineeringMatrix from "@/components/sections/technical-expertise";
-import SelectedWork from "@/components/sections/work";
+import Experience from "@/components/sections/experience";
+import Work from "@/components/sections/work";
+import Expertise from "@/components/sections/expertise";
+import Skills from "@/components/sections/skills";
+import Education from "@/components/sections/education";
+import Contact from "@/components/sections/contact";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Hero />
-      <MarqueeStrip />
+    <>
       <About />
-      <ImpactSection />
-      <SelectedWork />
-      <ExperienceTimeline />
-      <EducationFoundation />
-      <EngineeringMatrix />
-      <CurrentlyBuilding />
-      <EngineeringNotes />
-      <FinalCTA />
-    </div>
+      <Experience />
+      <Work />
+      <Expertise />
+      <Skills />
+      <Education />
+      <Contact />
+    </>
   );
 }

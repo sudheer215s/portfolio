@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display, DM_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/layout/navbar";
-import Footer from "@/components/layout/footer";
+import { Sidebar } from "@/components/layout/sidebar";
 import { site, siteUrl } from "@/data/site";
 
 const inter = Inter({
@@ -26,19 +25,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: site.seo.title,
   description: site.seo.description,
-  openGraph: {
-    title: site.seo.title,
-    description: site.seo.description,
-    url: siteUrl,
-    siteName: site.seo.title,
-    locale: "en_IN",
-    type: "website",
-  },
-  twitter: {
-    card: "summary",
-    title: site.seo.title,
-    description: site.seo.description,
-  },
 };
 
 const jsonLd = {
@@ -65,24 +51,17 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${playfair.variable} ${dmMono.variable} antialiased font-sans flex flex-col min-h-screen`}
+        className={`${inter.variable} ${playfair.variable} ${dmMono.variable} antialiased font-sans bg-background text-foreground`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem={false}
-        >
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-background focus:text-foreground focus:px-4 focus:py-2 focus:rounded-md focus:border focus:border-accent"
+            href="#about"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-background focus:px-4 focus:py-2 focus:border focus:border-accent"
           >
             Skip to content
           </a>
-          <Navbar />
-          <main id="main" className="flex-1 pb-28 md:pb-0">
-            {children}
-          </main>
-          <Footer />
+          <Sidebar />
+          <main className="lg:ml-[300px] min-h-screen">{children}</main>
         </ThemeProvider>
       </body>
     </html>

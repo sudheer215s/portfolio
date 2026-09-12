@@ -1,43 +1,18 @@
-# Sudheer Singh — portfolio v3
+# Sudheer Singh — portfolio v4
 
-Paper-and-gold engineering portfolio. Customized from the tmp visual system, with hire-scan content from the v2 research lock and a Utkarsh-style narrative (who I am → work → experience → education → contact).
+Readable Colorlib-style layout (from [Utkarsh’s portfolio](https://utkarshexample.github.io/portfolio/)) with the **v3 paper-and-gold theme**.
 
-**Worktree:** `/Users/tereishqmein/Dev/v2/portfolio-v3` on branch `v3`.
-**v2** (Astro spec document) stays on `main` at `/Users/tereishqmein/Dev/v2/portfolio`.
+**Worktree:** `/Users/tereishqmein/Dev/v2/portfolio-v4` on branch `v4`.
 
-Design contract: [`docs/DESIGN-v3.md`](docs/DESIGN-v3.md).
+- `main` — v2 Astro spec
+- `v3` — animated paper-gold Next.js site
+- `v4` — this site
 
-## Run
-
-Node 22. npm.
+Contract: [`docs/DESIGN-v4.md`](docs/DESIGN-v4.md).
 
 ```bash
 npm install
-npm run dev      # http://127.0.0.1:3000
-npm run build
-npm run start
+npm run dev -- --port 3001
 ```
 
-## Content
-
-Facts live in `src/data/`. Do not import `../profile` at build time. `public/resume.pdf` is CV5.
-
-Numeric claims on this site are from the brief / CV5 only:
-
-- 99.99% Postgres uptime, sub-30s recovery
-- 40% faster IMS/ENUM queries
-- 70% less deploy toil
-- TranslateLive <3s e2e, 10+ sessions
-- ClauseNotebook is Stage 1 ingestion (in progress)
-
-## Routes
-
-- `/` — homepage
-- `/projects` — the three works
-- `/contact` — email + form (form sends only if SMTP env is set)
-- `/resume.pdf`
-
-## Identity
-
-Sudheer Singh · AI Systems Builder · Scientist-B, C-DOT · New Delhi
-`singhsudheer215@gmail.com` · [GitHub](https://github.com/sudheer215s) · [LinkedIn](https://linkedin.com/in/sudheer-singh-975889195)
+Open http://127.0.0.1:3001
