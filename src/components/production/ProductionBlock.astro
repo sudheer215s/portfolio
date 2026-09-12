@@ -1,0 +1,65 @@
+---
+import { site, proofs, productionFacts } from "../../data/site";
+import Citation from "../proof/Citation.astro";
+
+const tiles = [
+  ...proofs.filter((proof) =>
+    (proof.surfaces as readonly string[]).includes("production"),
+  ),
+  {
+    id: "deploy",
+    value: "70%",
+    qualifier: "less toil",
+    detail: "Deployment automation (Python + Bash) cut manual effort 70%.",
+    citations: ["brief", "CV5"] as const,
+  },
+];
+---
+
+<div class="production">
+  <p class="production-role">
+    {site.employer.titleCurrent}
+    <span class="muted">
+      · {site.employer.name} · {site.employer.datesCurrent}
+    </span>
+  </p>
+  <p class="production-scan">
+    National IMS/ENUM call-routing. A dropped lookup is a call that never
+    connects.
+  </p>
+  <ul class="metric-row" aria-label="Production proof">
+    {
+      tiles.map((tile) => (
+        <li class="metric-tile" title={tile.detail}>
+          <span class="metric-value">{tile.value}</span>
+          <span class="metric-label">{tile.qualifier}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="production-transfer">{productionFacts.transfer}</p>
+  <details class="spec-details">
+    <summary>Full production notes</summary>
+    <p class="production-prior">
+      Prior: {site.employer.titlePrior} · {site.employer.datesPrior}
+    </p>
+    <ul class="production-bullets">
+      {
+        productionFacts.bullets.map((bullet) => (
+          <li>
+            {bullet.text}
+            {"dated" in bullet && bullet.dated ? (
+              <span class="dated"> ({bullet.dated})</span>
+            ) : null}
+            <Citation tokens={bullet.citations} />
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      {productionFacts.nssaafDisplay}
+      <Citation tokens={["brief", "CV5"]} />
+    </p>
+    <p class="nssaaf-note">{productionFacts.nssaafFootnote}</p>
+  </details>
+</div>

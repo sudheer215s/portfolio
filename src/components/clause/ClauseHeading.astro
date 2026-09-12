@@ -1,0 +1,14 @@
+---
+interface Props {
+  number: string;
+  title: string;
+  headingId?: string;
+}
+
+const { number, title, headingId } = Astro.props;
+---
+
+<div class="clause-heading" id={headingId}>
+  <span class="clause-kicker">{number}</span>
+  <span class="clause-title">{title}</span>
+</div>

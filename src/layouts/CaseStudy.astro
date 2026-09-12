@@ -1,0 +1,81 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Base from "./Base.astro";
+import ConformanceTable from "../components/work/ConformanceTable.astro";
+import WorkFigure from "../components/figures/WorkFigure.astro";
+import { proofs, site } from "../data/site";
+
+interface Props {
+  entry: CollectionEntry<"work">;
+}
+
+const { entry } = Astro.props;
+const data = entry.data;
+const relatedProofs = proofs.filter((proof) =>
+  data.proofIds.includes(proof.id),
+);
+const proofValue = relatedProofs.length
+  ? relatedProofs.map((proof) => `${proof.value} ${proof.qualifier}`).join(" · ")
+  : (data.proofNote ?? "—");
+---
+
+<Base
+  title={`${data.name} — ${site.person.name}`}
+  description={data.seoDescription}
+>
+  <p class="back-link">
+    <a href="/#work">← Work</a>
+  </p>
+  <header class="case-head rise">
+    <p class="clause-kicker">{data.clause}</p>
+    <h1>{data.name}</h1>
+    <p class="work-status">{data.statusLabel}</p>
+    <p class="case-lede">{data.title}</p>
+  </header>
+  <div class="case-visual rise delay-1">
+    <WorkFigure slug={data.slug} />
+    {
+      relatedProofs.length > 0 && (
+        <p class="work-metrics">
+          {relatedProofs.map((proof) => (
+            <span>
+              <strong>{proof.value}</strong>
+              {proof.qualifier}
+            </span>
+          ))}
+        </p>
+      )
+    }
+  </div>
+  <p class="case-claim rise delay-2">{data.problem}</p>
+  <p class="chip-row rise delay-2">
+    {data.stack.map((item) => <span class="chip">{item}</span>)}
+  </p>
+  <p class="work-links">
+    {
+      data.repo ? (
+        <a href={data.repo} rel="noopener noreferrer">
+          GitHub
+        </a>
+      ) : (
+        <span class="muted">No public repo</span>
+      )
+    }
+  </p>
+  <details class="spec-details">
+    <summary>Spec table</summary>
+    <ConformanceTable
+      rows={[
+        { label: "Problem", value: data.problem },
+        { label: "Constraint", value: data.constraint },
+        { label: "Stack", value: [...data.stack] },
+        { label: "Proof", value: proofValue },
+        { label: "Repo", value: data.repo ?? "No public repo" },
+        { label: "Status", value: data.statusLabel },
+      ]}
+    />
+  </details>
+  <div class="case-body">
+    <slot />
+  </div>
+</Base>

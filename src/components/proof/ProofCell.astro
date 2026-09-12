@@ -1,0 +1,25 @@
+---
+import type { CitationToken } from "../../data/site";
+import Citation from "./Citation.astro";
+
+interface Props {
+  value: string;
+  qualifier: string;
+  detail: string;
+  citations: readonly CitationToken[];
+  describedById: string;
+}
+
+const { value, qualifier, detail, citations, describedById } = Astro.props;
+---
+
+<li class="proof-cell" title={detail} aria-describedby={describedById}>
+  <p class="proof-value">{value}</p>
+  <p class="proof-qualifier">
+    {qualifier}
+    <span class="proof-citations">
+      <Citation tokens={citations} />
+    </span>
+  </p>
+  <p class="proof-detail" id={describedById}>{detail}</p>
+</li>

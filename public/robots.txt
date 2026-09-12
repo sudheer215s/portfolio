@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sudheer215s.pages.dev/sitemap-index.xml

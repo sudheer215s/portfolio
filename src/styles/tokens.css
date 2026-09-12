@@ -1,0 +1,37 @@
+:root {
+  /* Night Index — from fetched sites: paco.me, rauno.me, leerob.com */
+  --paper: oklch(0.145 0.008 80); /* #0E0D0B */
+  --paper-2: oklch(0.185 0.01 80); /* #171512 */
+  --ink: oklch(0.94 0.012 90); /* #EDEAE3 */
+  --ink-muted: oklch(0.62 0.02 80); /* #8A8478 */
+  --rule: oklch(0.28 0.012 80); /* #2C2924 */
+  --stamp: oklch(0.82 0.15 85); /* #E6B325 amber lamp */
+  --stamp-on: oklch(0.145 0.008 80); /* #0E0D0B */
+
+  --font-sans:
+    var(--font-plex-sans), "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: var(--font-plex-serif), "IBM Plex Serif", Georgia, serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", ui-monospace, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 72px;
+
+  --radius: 0;
+  --hairline: 1px;
+  --measure: 40rem;
+
+  --header-band: 52px;
+  --scroll-margin: 64px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-band: 56px;
+    --scroll-margin: 72px;
+  }
+}

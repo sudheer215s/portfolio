@@ -1,0 +1,73 @@
+---
+import Base from "../layouts/Base.astro";
+import Clause from "../components/clause/Clause.astro";
+import ProofStrip from "../components/proof/ProofStrip.astro";
+import CtaCluster from "../components/cta/CtaCluster.astro";
+import WorkList from "../components/work/WorkList.astro";
+import ProductionBlock from "../components/production/ProductionBlock.astro";
+import SeekingBlock from "../components/seeking/SeekingBlock.astro";
+import Definitions from "../components/definitions/Definitions.astro";
+import { getCollection } from "astro:content";
+import { site } from "../data/site";
+
+const clauseNotebook = (await getCollection("work")).find(
+  (entry) => entry.data.slug === "clausenotebook",
+);
+const nowCaseStudy =
+  clauseNotebook?.data.publishPage === true
+    ? site.clause1.nowCaseStudy
+    : null;
+---
+
+<Base>
+  <Clause id="scope" number="1" title="Scope">
+    <div class="scope-hero">
+      <h1 class="scope-name rise">{site.person.name}</h1>
+      <p class="scope-role rise delay-1" aria-describedby="role-full">
+        {site.clause1.roleCompact}
+        <span class="full-slot" id="role-full">{site.clause1.roleFull}</span>
+      </p>
+      <p class="scope-phrase rise delay-1">{site.person.shortPhrase}</p>
+      <p class="scope-employer rise delay-2" aria-describedby="employer-full">
+        {site.clause1.employerCompact}
+        <span class="full-slot" id="employer-full">
+          {site.clause1.employerFull} · {site.clause1.location}
+        </span>
+      </p>
+    </div>
+
+    <div class="rise delay-2">
+      <ProofStrip />
+    </div>
+
+    <p class="scope-now rise delay-3" aria-describedby="now-full">
+      <span class="now-chip">{site.clause1.nowCompact}</span>
+      <span class="full-slot" id="now-full">{site.clause1.nowFull}</span>
+      <a href={site.clause1.nowGithub} rel="noopener noreferrer">GitHub</a>
+      {
+        nowCaseStudy ? (
+          <a href={nowCaseStudy}>Case study</a>
+        ) : null
+      }
+    </p>
+
+    <CtaCluster />
+    <p class="availability">{site.availability}</p>
+  </Clause>
+
+  <Clause id="work" number="2" title="Work">
+    <WorkList />
+  </Clause>
+
+  <Clause id="production" number="3" title="Production">
+    <ProductionBlock />
+  </Clause>
+
+  <Clause id="seeking" number="4" title="Seeking">
+    <SeekingBlock />
+  </Clause>
+
+  <Clause id="stack" number="5" title="Definitions">
+    <Definitions />
+  </Clause>
+</Base>

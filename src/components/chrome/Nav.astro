@@ -1,0 +1,15 @@
+---
+import { site } from "../../data/site";
+---
+
+<nav class="doc-nav" aria-label="Document">
+  <ul class="nav-list">
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/#production">Production</a></li>
+    <li>
+      <a href={site.person.github} rel="noopener noreferrer">GitHub</a>
+    </li>
+    <li><a href="/resume.pdf">Resume</a></li>
+    <li><a href={`mailto:${site.person.email}`}>Email</a></li>
+  </ul>
+</nav>

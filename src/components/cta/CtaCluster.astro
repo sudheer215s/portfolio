@@ -1,0 +1,14 @@
+---
+import { site } from "../../data/site";
+---
+
+<div class="cta-cluster">
+  <a class="cta-email" href={`mailto:${site.person.email}`}>
+    {site.person.email}
+  </a>
+  <p class="cta-links">
+    <a href="/resume.pdf">Resume</a>
+    <a href={site.person.github} rel="noopener noreferrer">GitHub</a>
+    <a href={site.person.linkedin} rel="noopener noreferrer">LinkedIn</a>
+  </p>
+</div>
