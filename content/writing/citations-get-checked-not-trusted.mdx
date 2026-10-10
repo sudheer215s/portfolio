@@ -1,0 +1,16 @@
+---
+title: "Citations get checked, not trusted"
+summary: "A citation has to name a hash and a span. ClauseNotebook treats a confident paraphrase as the defect, and Stage 1 only proves ingestion."
+date: "2026-03-01"
+tags: ["Retrieval", "Citations", "3GPP"]
+---
+
+A citation is only as good as the thing it points at. A model can emit a bracketed clause number that looks official and still not exist in the document you have. In 3GPP work that is not a display bug. Someone will build against it.
+
+ClauseNotebook is my attempt to put the document first. Stage 1, which is public, registers source PDFs in a versioned JSON manifest with SHA-256 hashes, writes that manifest atomically, and converts them with PyMuPDF4LLM through explicit states: registered, then converted. If a later citation cannot name a hash and a source span, it does not belong in an answer.
+
+## What this stage does not prove
+
+There is no retrieval eval, no Recall@k, and no claim that the system already checks model output. Ingestion is the part that does not get easier if you put a chat box in front of it. The corpus is public 3GPP PDFs only. No employer documents.
+
+The check I want next is mechanical: did the span exist, was the document version right, and did we refuse when we should have. Until that check exists, the assistant UI stays off.

@@ -1,0 +1,34 @@
+---
+title: "Distributed Social Backend"
+summary: "A personal systems exercise: five NestJS services, a Kafka transactional outbox, Redis fan-out timelines, and Elasticsearch. No public repository and no user-count claim."
+date: "2025-11-01"
+stack: ["NestJS", "TypeScript", "PostgreSQL", "Kafka", "Redis", "gRPC", "Elasticsearch", "Kubernetes"]
+role: "Solo, personal"
+outcome: "The artifact is this write-up. There is no public repo, no user count, and no QPS claim."
+---
+
+A social graph, a feed, search, and notifications cannot honestly live in one process if the point is to practice distributed writes. Dual-writing a row to PostgreSQL and an event to Kafka is how you get a timeline that never sees a post that "succeeded."
+
+This is a personal systems exercise. It is not a hosted product.
+
+## Constraints
+
+Domain-separated services. No dual-write to the database and the log. Timeline reads should be cheap after a write. Notifications have to cross process boundaries. Auth should not be reimplemented five times.
+
+There is **no public repository**. I will not invent a GitHub URL. I am happy to walk the design in an interview.
+
+## Design
+
+NestJS monorepo, five services talking gRPC internally: User, Post, Graph, Notification, and Search.
+
+Writes that must be followed by events use Kafka with a transactional outbox, so the database commit and the event share a fate. Timeline fan-out is Redis-backed on write. Notifications use Redis Pub/Sub so a WebSocket on another instance still fires. Elasticsearch is a projection for full-text search. PostgreSQL remains the source of truth. JWT with RBAC lives in shared guards. Rate limiting and circuit breakers sit on the edges. The runtime is Kubernetes, with Prometheus, Grafana, and distributed tracing.
+
+Write-time fan-out is the honest default until one author has a very large follower graph. I would not pretend this design solves that.
+
+## What is not claimed
+
+There is no user count and no "handled N million events." Those numbers are not mine to publish. The interesting parts are the outbox, the fan-out, and the edges.
+
+## What I would do next
+
+Publish a stripped repository if the code can be made public without leftover secrets. Add a failure-injection test that kills the outbox relay mid-flight and checks the timeline still converges. Keep tracing as a release gate.

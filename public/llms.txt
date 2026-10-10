@@ -1,0 +1,20 @@
+# Sudheer Singh
+
+Sudheer Singh is an AI Systems Builder in New Delhi. He is a Scientist-B at C-DOT, building high-availability backends for India's national telecom infrastructure (99.99% Postgres uptime, 40% faster IMS/ENUM lookups). His personal work is ClauseNotebook, a citation-grounded 3GPP copilot in Stage 1, and TranslateLive, a voice pipeline under three seconds. He holds a B.Tech in Computer Science and Engineering from MANIT Bhopal.
+
+## Projects
+
+- [ClauseNotebook](http://localhost:3000/projects/clausenotebook): Citation-grounded 3GPP copilot. Stage 1 is provenance: a versioned JSON manifest, SHA-256, an idempotent CLI, and PyMuPDF4LLM. Public specs only. Retrieval is next.
+- [Distributed Social Backend](http://localhost:3000/projects/distributed-social): A personal systems exercise: five NestJS services, a Kafka transactional outbox, Redis fan-out timelines, and Elasticsearch. No public repository and no user-count claim.
+- [TranslateLive](http://localhost:3000/projects/translatelive): Real-time voice translation under a hard latency budget. Deepgram speech-to-text, GPT translation, and text-to-speech, under 3 seconds, with more than ten concurrent sessions.
+
+## Writing
+
+- [Citations get checked, not trusted](http://localhost:3000/writing/citations-get-checked-not-trusted): A citation has to name a hash and a span. ClauseNotebook treats a confident paraphrase as the defect, and Stage 1 only proves ingestion.
+- [Abstention is the default path](http://localhost:3000/writing/abstention-is-the-default-path): Until retrieval can say it does not have a clause, there is no assistant UI. A fluent guess is a failure mode, not a product.
+- [Idempotency at the schema](http://localhost:3000/writing/idempotency-at-the-schema): A guarantee that lives only in one code path breaks the moment something else writes. Registration hashes and a transactional outbox put it in the data.
+- [Uptime is a personality](http://localhost:3000/writing/uptime-is-a-personality): A dropped IMS/ENUM lookup is a call that never connects. The Postgres cluster I rebuilt holds 99.99% uptime, with sub-30s recovery.
+
+## About
+
+- [Resume](http://localhost:3000/resume): Experience, education, and skills.

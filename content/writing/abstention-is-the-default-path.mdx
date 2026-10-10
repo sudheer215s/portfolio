@@ -1,0 +1,18 @@
+---
+title: "Abstention is the default path"
+summary: "Until retrieval can say it does not have a clause, there is no assistant UI. A fluent guess is a failure mode, not a product."
+date: "2026-03-01"
+tags: ["Reliability", "Retrieval", "RAG"]
+---
+
+A system that always answers is a system that sometimes lies with confidence. The dangerous case is not an empty retrieval. It is a fluent paragraph the documents do not support.
+
+I learned the opposite reflex on production backends. If a lookup returns nothing, something upstream is usually broken, and the caller still needs a defined result. That reflex is right when the answer exists and the system failed to fetch it. It is wrong when the answer does not exist at all.
+
+## No chat box until the system can refuse
+
+ClauseNotebook's rule is blunt: until retrieval can say "I don't have a clause that says that," there is no assistant UI. Abstention is the product constraint, not a fallback I will add after the demo looks good.
+
+I have not shipped that refusal path yet. Stage 1 is ingestion. Saying so is the point. The release gate I will not skip is citation quality: did the span exist, was the version right, did we refuse when we should have. Fluency is not on that list.
+
+The same instinct shows up at work. An uncited reading of a 5G interface stays unverified. Public specs only on this site. Internals stay off it.

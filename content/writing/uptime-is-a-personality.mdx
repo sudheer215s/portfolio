@@ -1,0 +1,18 @@
+---
+title: "Uptime is a personality"
+summary: "A dropped IMS/ENUM lookup is a call that never connects. The Postgres cluster I rebuilt holds 99.99% uptime, with sub-30s recovery."
+date: "2024-12-01"
+tags: ["Operations", "PostgreSQL", "Telecom"]
+---
+
+A dropped lookup on a national call-routing system is not a slow page. It is a call that never connects. Uptime, for that service, is a product property.
+
+At C-DOT I rebuilt the PostgreSQL primary-replica cluster behind the IMS/ENUM routing backend: streaming replication, automatic failover, 99.99% uptime, recovery under 30 seconds, and no unplanned outages since that launch. The service does millions of subscriber lookups a day, and the budget on the critical path is sub-second.
+
+## The number next to it
+
+Query-plan analysis and an index redesign made the critical IMS/ENUM queries 40% faster under peak load. Monitoring and alerting moved detection from "a user reported it" to minutes.
+
+The year before, as a research engineer on the same lab's live services, Ubuntu and PostgreSQL held 99.9% availability, and deployment automation cut manual effort by 70%.
+
+None of this is a model story. It is the reason I trust a latency budget, a failover drill, and a metric I can page on more than a demo that worked once.

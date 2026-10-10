@@ -1,0 +1,35 @@
+---
+title: "ClauseNotebook"
+summary: "Citation-grounded 3GPP copilot. Stage 1 is provenance: a versioned JSON manifest, SHA-256, an idempotent CLI, and PyMuPDF4LLM. Public specs only. Retrieval is next."
+date: "2026-03-01"
+stack: ["Python", "CLI", "JSON", "SHA-256", "PyMuPDF4LLM"]
+role: "Solo, personal"
+outcome: "Stage 1 ingestion works in public. No Recall@k, no latency number, and no users yet. The proof is the repository."
+repo: "https://github.com/sudheer215s/ClauseNotebook"
+---
+
+Telecom engineers need the exact clause that specifies a requirement. The documents are large, versioned, and cross-linked. A confident paraphrase with no citation is a liability, because someone will build against it.
+
+I ran into this while implementing 5G-core service interfaces from 3GPP specifications. Architecture lives in a stage-2 spec, message contracts live in stage-3, and common types live somewhere else again. Miss a cross-reference and you ship a contract that looks correct and is incomplete. I treated anything I could not attach to a clause number as unverified. That process is slow, and it is why this project exists.
+
+The corpus is **public 3GPP PDFs only**. No C-DOT documents, no internal specs, no subscriber data.
+
+## Why generic RAG fails here
+
+Clause numbering nests and carries semantics. Requirements often sit in the tables under the prose. Specs cross-reference constantly, so a clause cited in isolation can still be incomplete. An answer that was correct against Release 17 can be silent-wrong against Release 18.
+
+So I started at the foundation, not at the chat box. The pipeline shall not emit an uncited claim. Until retrieval can abstain — "I don't have a clause that says that" — there is no assistant UI.
+
+## Stage 1, which exists today
+
+Source PDFs are registered in a versioned JSON manifest with metadata and SHA-256 hashes, so a later citation can resolve to a byte-identical document version. Registration is idempotent. Manifest writes are atomic. The CLI enforces repository-contained source paths. PyMuPDF4LLM converts each PDF to Markdown. Documents move through explicit states: `registered` → `converted`. The repository stores pointers and hashes, not a dump of PDF bytes.
+
+The code is public: [github.com/sudheer215s/ClauseNotebook](https://github.com/sudheer215s/ClauseNotebook).
+
+## What is not claimed
+
+There is no Recall@k, no latency number, and no user count. Stage 1 is not an evaluated retrieval system. I am not claiming a finished copilot.
+
+## What comes next
+
+Clause-aware chunking that respects nested numbering and tables. Hybrid retrieval. Inline citations that point at a hashed document version. An abstention path. Evals that score citation quality: did the span exist, was the version right, did we refuse when we should have.

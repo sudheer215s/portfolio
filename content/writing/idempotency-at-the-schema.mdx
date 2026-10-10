@@ -1,0 +1,18 @@
+---
+title: "Idempotency at the schema"
+summary: "A guarantee that lives only in one code path breaks the moment something else writes. Registration hashes and a transactional outbox put it in the data."
+date: "2025-11-01"
+tags: ["Systems", "Kafka", "Idempotency"]
+---
+
+Idempotency that lives only in application logic breaks the moment a second path writes. A retry, a manual script, a new endpoint, and the guarantee everyone assumed was there quietly stops holding.
+
+## Documents
+
+ClauseNotebook registers a PDF by content hash. The same file does not get a second identity unless that is explicit. Manifest writes are atomic, so killing the process cannot leave a half-updated registry. Re-running the CLI is the normal case, not an accident you have to clean up.
+
+## Events
+
+The distributed social backend uses the same idea on the write path. A post that must also become a timeline event goes through a Kafka transactional outbox, so the database commit and the event share a fate. Dual-writing the row and the message is how you get a timeline that never sees a post that "succeeded."
+
+There is no public repository for that system, and I am not claiming a traffic number. The design point is the one I would walk in an interview: the outbox, then the fan-out.
