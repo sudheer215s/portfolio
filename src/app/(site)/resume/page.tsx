@@ -3,10 +3,11 @@ import Image from "next/image";
 import { Download, ExternalLink } from "lucide-react";
 import { SITE_DESCRIPTION } from "@/lib/site";
 
-// To update: replace public/resume/resume.pdf, then run `npm run resume:image`
-// to re-render the preview (public/resume/resume.png) from its first page.
+// To update: replace public/resume/resume.pdf, then run `npm run resume:image`.
+// That renders the first page and writes this preview. It is served as-is
+// (unoptimized) so a visit does not wait on the image optimizer.
 const RESUME_PDF = "/resume/resume.pdf";
-const RESUME_PREVIEW = "/resume/resume.png";
+const RESUME_PREVIEW = "/resume/resume.webp";
 const DOWNLOAD_NAME = "Sudheer-Singh-Resume.pdf";
 
 const buttonBase =
@@ -50,10 +51,11 @@ export default function ResumePage() {
         <Image
           src={RESUME_PREVIEW}
           alt="Sudheer Singh's one-page resume"
-          width={1696}
-          height={2400}
+          width={1587}
+          height={2246}
           sizes="(max-width: 840px) 100vw, 800px"
           priority
+          unoptimized
           className="h-auto w-full"
         />
       </a>

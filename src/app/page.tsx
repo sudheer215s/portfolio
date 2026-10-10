@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter, Lora } from "next/font/google";
 import { HomeBlogs } from "@/components/home/home-blogs";
 import { HomeFooter } from "@/components/home/home-footer";
 import { HomeHeader } from "@/components/home/home-header";
@@ -16,17 +15,12 @@ export const metadata: Metadata = {
   description: SITE_DESCRIPTION,
 };
 
-const lora = Lora({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-lora" });
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-inter" });
-
 export default function Home() {
   const searchIndex = buildSearchIndex();
 
   return (
     <div
       className={cn(
-        lora.variable,
-        inter.variable,
         serif,
         "home-page flex min-h-screen flex-col bg-[var(--bg)] text-[18px] leading-[1.65] text-[var(--text)] phone:text-[17px]"
       )}

@@ -10,7 +10,7 @@
     "start": "next start",
     "lint": "eslint",
     "verify": "node scripts/verify-crawlable.mjs",
-    "resume:image": "qlmanage -t -s 2400 -o public/resume public/resume/resume.pdf && mv public/resume/resume.pdf.png public/resume/resume.png"
+    "resume:image": "pdftoppm -png -r 192 -f 1 -l 1 -singlefile public/resume/resume.pdf /tmp/sudheer-resume-render && node scripts/optimize-resume-preview.mjs /tmp/sudheer-resume-render.png public/resume/resume.webp"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.2.0",

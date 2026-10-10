@@ -2,15 +2,22 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Search } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import { SiteSearch } from "@/components/layout/site-search";
 import { isNavLinkActive } from "@/lib/nav";
 import type { SearchItem } from "@/lib/search-index";
 import { loadSearchIndex } from "@/lib/site-search";
 import { cn } from "@/lib/utils";
+
+// The search panel is a separate file, loaded when the reader opens search,
+// so the first view does not wait on it.
+const SiteSearch = dynamic(
+  () => import("@/components/layout/site-search").then((mod) => mod.SiteSearch),
+  { ssr: false }
+);
 
 const NAV_ITEMS = [
   { label: "Projects", href: "/projects" },
@@ -31,6 +38,11 @@ export function HomeNav({ githubUrl, searchIndex }: { githubUrl: string; searchI
   const pathname = usePathname();
   const [searchOpen, setSearchOpen] = React.useState(false);
   const searchButtonRef = React.useRef<HTMLButtonElement>(null);
+
+  const prepareSearch = () => {
+    void import("@/components/layout/site-search");
+    loadSearchIndex(searchIndex);
+  };
 
   // Same shortcuts as the docs header: "/" (outside text fields) or Cmd/Ctrl+K.
   React.useEffect(() => {
@@ -91,9 +103,9 @@ export function HomeNav({ githubUrl, searchIndex }: { githubUrl: string; searchI
         type="button"
         aria-label="Search"
         onClick={() => setSearchOpen(true)}
-        // Start building the index as soon as the visitor reaches for search.
-        onPointerEnter={() => loadSearchIndex(searchIndex)}
-        onFocus={() => loadSearchIndex(searchIndex)}
+        // Build the index and fetch the panel as soon as the reader reaches for search.
+        onPointerEnter={() => prepareSearch()}
+        onFocus={() => prepareSearch()}
         className={cn(
           sans,
           "inline-flex h-9 shrink-0 cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 text-[15px] font-medium text-[var(--muted)] transition-colors hover:border-[var(--border-hover)] hover:text-[var(--text)]",
