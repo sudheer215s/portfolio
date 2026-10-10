@@ -1,0 +1,23 @@
+---
+title: "Learning to Say “I Don’t Know”"
+summary: "Production backends trained me to always return something. A standards copilot is only safe if it is allowed to refuse."
+date: "2026-09-01"
+---
+
+For three years my job has been keeping a lookup path alive. On a national IMS/ENUM routing system, an empty result is usually an incident. A timeout is a call that does not connect. Silence is a failure.
+
+Then I started designing a system that is supposed to be quiet.
+
+ClauseNotebook is a personal project: a citation-grounded copilot for public 3GPP specifications. The documents are nested, versioned, and full of cross-references. A fluent answer with no clause number is worse than no answer, because someone will implement it.
+
+## The habit I brought with me
+
+Backend engineering trains a reflex. If the system cannot produce an answer, something upstream is broken. You add a retry, a fallback, a defined error. The caller gets *something*.
+
+That reflex is right when the answer exists and the fetch failed. It is dangerous when the answer does not exist. A language model will fill the gap with a confident paragraph whether or not the spec supports it, and the fluency is what makes it convincing.
+
+## A system that is allowed to refuse
+
+So the rule on ClauseNotebook is that there is no assistant until retrieval can say it does not have a clause. Stage 1, which is what the repository actually contains, only registers and converts public PDFs, with a hash for every file. I have not shipped the refusal path. Writing that down is part of refusing.
+
+The same line shows up in how I want to be hired. I want AI work that owns production: retrieval, evals, tracing, a latency budget. I do not want to tune prompts until a demo looks right. If I cannot attach a claim to a source, I would rather say I don't know.

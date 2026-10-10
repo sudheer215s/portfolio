@@ -1,0 +1,41 @@
+---
+title: "TranslateLive"
+summary: "Real-time voice translation under a hard latency budget. Deepgram speech-to-text, GPT translation, and text-to-speech, under 3 seconds, with more than ten concurrent sessions."
+date: "2025-08-01"
+stack: ["Python", "FastAPI", "WebSocket", "Redis", "Deepgram", "OpenAI", "Kubernetes"]
+role: "Solo, personal"
+outcome: "End-to-end under three seconds. Load tests held more than ten simultaneous WebSocket sessions without dropped connections. No live demo URL."
+repo: "https://github.com/sudheer215s/TranslateLive"
+---
+
+Real-time voice translation has to feel like conversation, not a batch job. The user speaks; they should hear a translation before the moment has moved on. That is a pipeline: speech recognition, a language model, and speech playback, on a live connection, under a hard time budget.
+
+TranslateLive is a personal system that owns that orchestration layer. The model sits in the middle. Retries, session state, and health checks sit around it.
+
+## Constraints
+
+The budget is end-to-end under three seconds, measured from speech-to-text through translation through playback. The service has to hold concurrent live sessions. Instances stay stateless so it can scale horizontally. CI, integration tests, structured JSON logging, and health checks were there from the start.
+
+This is not a research speech model, and it is not a C-DOT deployment.
+
+## Design
+
+The pipeline is linear:
+
+Deepgram speech-to-text → GPT translation → text-to-speech playback.
+
+Transport is WebSocket. Concurrency is Python asyncio plus connection pooling on FastAPI. Session state lives in Redis, so any instance can pick up a session. The deployment target is Kubernetes.
+
+Each provider has its own tail latency. The service has to survive a slow transcription without dropping the socket, and two users talking at once without sharing buffers. Redis is the shared state. The FastAPI process is disposable.
+
+v1 stays sequential. A streaming partial transcript that starts translation early would need a latency eval before I would ship it.
+
+## Proof
+
+End-to-end latency under three seconds. Load tests held more than ten simultaneous WebSocket sessions without dropped connections. The code is public: [github.com/sudheer215s/TranslateLive](https://github.com/sudheer215s/TranslateLive).
+
+No p50/p95. No cost per query. No live demo URL. No extra vendor names beyond Deepgram, GPT, and TTS.
+
+## What I would do next
+
+Traces on every call, so a regression in tail latency has a span. An eval set of utterances with a latency gate in CI. Explicit backpressure when a provider slows down. Per-stage timeouts so a hung TTS call cannot hold the whole budget.

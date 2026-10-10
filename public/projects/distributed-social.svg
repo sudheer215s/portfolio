@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#F6F1E7"/>
+  <text x="48" y="210" fill="#1A1A1A" font-family="Georgia, serif" font-size="42">Distributed Social</text>
+  <text x="48" y="260" fill="#6B6256" font-family="ui-monospace, monospace" font-size="20">no dual-write</text>
+</svg>

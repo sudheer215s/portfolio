@@ -1,0 +1,167 @@
+# Sudheer Singh
+
+Sudheer Singh is an AI Systems Builder in New Delhi. He is a Scientist-B at C-DOT, building high-availability backends for India's national telecom infrastructure (99.99% Postgres uptime, 40% faster IMS/ENUM lookups). His personal work is ClauseNotebook, a citation-grounded 3GPP copilot in Stage 1, and TranslateLive, a voice pipeline under three seconds. He holds a B.Tech in Computer Science and Engineering from MANIT Bhopal.
+
+---
+
+# About
+
+Sudheer Singh is an AI Systems Builder in New Delhi. He is a Scientist-B at C-DOT, building high-availability backends for India's national telecom infrastructure (99.99% Postgres uptime, 40% faster IMS/ENUM lookups). His personal work is ClauseNotebook, a citation-grounded 3GPP copilot in Stage 1, and TranslateLive, a voice pipeline under three seconds. He holds a B.Tech in Computer Science and Engineering from MANIT Bhopal.
+
+---
+
+# Project: ClauseNotebook
+
+Telecom engineers need the exact clause that specifies a requirement. The documents are large, versioned, and cross-linked. A confident paraphrase with no citation is a liability, because someone will build against it.
+
+I ran into this while implementing 5G-core service interfaces from 3GPP specifications. Architecture lives in a stage-2 spec, message contracts live in stage-3, and common types live somewhere else again. Miss a cross-reference and you ship a contract that looks correct and is incomplete. I treated anything I could not attach to a clause number as unverified. That process is slow, and it is why this project exists.
+
+The corpus is **public 3GPP PDFs only**. No C-DOT documents, no internal specs, no subscriber data.
+
+## Why generic RAG fails here
+
+Clause numbering nests and carries semantics. Requirements often sit in the tables under the prose. Specs cross-reference constantly, so a clause cited in isolation can still be incomplete. An answer that was correct against Release 17 can be silent-wrong against Release 18.
+
+So I started at the foundation, not at the chat box. The pipeline shall not emit an uncited claim. Until retrieval can abstain — "I don't have a clause that says that" — there is no assistant UI.
+
+## Stage 1, which exists today
+
+Source PDFs are registered in a versioned JSON manifest with metadata and SHA-256 hashes, so a later citation can resolve to a byte-identical document version. Registration is idempotent. Manifest writes are atomic. The CLI enforces repository-contained source paths. PyMuPDF4LLM converts each PDF to Markdown. Documents move through explicit states: `registered` → `converted`. The repository stores pointers and hashes, not a dump of PDF bytes.
+
+The code is public: [github.com/sudheer215s/ClauseNotebook](https://github.com/sudheer215s/ClauseNotebook).
+
+## What is not claimed
+
+There is no Recall@k, no latency number, and no user count. Stage 1 is not an evaluated retrieval system. I am not claiming a finished copilot.
+
+## What comes next
+
+Clause-aware chunking that respects nested numbering and tables. Hybrid retrieval. Inline citations that point at a hashed document version. An abstention path. Evals that score citation quality: did the span exist, was the version right, did we refuse when we should have.
+
+---
+
+# Project: Distributed Social Backend
+
+A social graph, a feed, search, and notifications cannot honestly live in one process if the point is to practice distributed writes. Dual-writing a row to PostgreSQL and an event to Kafka is how you get a timeline that never sees a post that "succeeded."
+
+This is a personal systems exercise. It is not a hosted product.
+
+## Constraints
+
+Domain-separated services. No dual-write to the database and the log. Timeline reads should be cheap after a write. Notifications have to cross process boundaries. Auth should not be reimplemented five times.
+
+There is **no public repository**. I will not invent a GitHub URL. I am happy to walk the design in an interview.
+
+## Design
+
+NestJS monorepo, five services talking gRPC internally: User, Post, Graph, Notification, and Search.
+
+Writes that must be followed by events use Kafka with a transactional outbox, so the database commit and the event share a fate. Timeline fan-out is Redis-backed on write. Notifications use Redis Pub/Sub so a WebSocket on another instance still fires. Elasticsearch is a projection for full-text search. PostgreSQL remains the source of truth. JWT with RBAC lives in shared guards. Rate limiting and circuit breakers sit on the edges. The runtime is Kubernetes, with Prometheus, Grafana, and distributed tracing.
+
+Write-time fan-out is the honest default until one author has a very large follower graph. I would not pretend this design solves that.
+
+## What is not claimed
+
+There is no user count and no "handled N million events." Those numbers are not mine to publish. The interesting parts are the outbox, the fan-out, and the edges.
+
+## What I would do next
+
+Publish a stripped repository if the code can be made public without leftover secrets. Add a failure-injection test that kills the outbox relay mid-flight and checks the timeline still converges. Keep tracing as a release gate.
+
+---
+
+# Project: TranslateLive
+
+Real-time voice translation has to feel like conversation, not a batch job. The user speaks; they should hear a translation before the moment has moved on. That is a pipeline: speech recognition, a language model, and speech playback, on a live connection, under a hard time budget.
+
+TranslateLive is a personal system that owns that orchestration layer. The model sits in the middle. Retries, session state, and health checks sit around it.
+
+## Constraints
+
+The budget is end-to-end under three seconds, measured from speech-to-text through translation through playback. The service has to hold concurrent live sessions. Instances stay stateless so it can scale horizontally. CI, integration tests, structured JSON logging, and health checks were there from the start.
+
+This is not a research speech model, and it is not a C-DOT deployment.
+
+## Design
+
+The pipeline is linear:
+
+Deepgram speech-to-text → GPT translation → text-to-speech playback.
+
+Transport is WebSocket. Concurrency is Python asyncio plus connection pooling on FastAPI. Session state lives in Redis, so any instance can pick up a session. The deployment target is Kubernetes.
+
+Each provider has its own tail latency. The service has to survive a slow transcription without dropping the socket, and two users talking at once without sharing buffers. Redis is the shared state. The FastAPI process is disposable.
+
+v1 stays sequential. A streaming partial transcript that starts translation early would need a latency eval before I would ship it.
+
+## Proof
+
+End-to-end latency under three seconds. Load tests held more than ten simultaneous WebSocket sessions without dropped connections. The code is public: [github.com/sudheer215s/TranslateLive](https://github.com/sudheer215s/TranslateLive).
+
+No p50/p95. No cost per query. No live demo URL. No extra vendor names beyond Deepgram, GPT, and TTS.
+
+## What I would do next
+
+Traces on every call, so a regression in tail latency has a span. An eval set of utterances with a latency gate in CI. Explicit backpressure when a provider slows down. Per-stage timeouts so a hung TTS call cannot hold the whole budget.
+
+---
+
+# Citations get checked, not trusted
+
+A citation is only as good as the thing it points at. A model can emit a bracketed clause number that looks official and still not exist in the document you have. In 3GPP work that is not a display bug. Someone will build against it.
+
+ClauseNotebook is my attempt to put the document first. Stage 1, which is public, registers source PDFs in a versioned JSON manifest with SHA-256 hashes, writes that manifest atomically, and converts them with PyMuPDF4LLM through explicit states: registered, then converted. If a later citation cannot name a hash and a source span, it does not belong in an answer.
+
+## What this stage does not prove
+
+There is no retrieval eval, no Recall@k, and no claim that the system already checks model output. Ingestion is the part that does not get easier if you put a chat box in front of it. The corpus is public 3GPP PDFs only. No employer documents.
+
+The check I want next is mechanical: did the span exist, was the document version right, and did we refuse when we should have. Until that check exists, the assistant UI stays off.
+
+---
+
+# Abstention is the default path
+
+A system that always answers is a system that sometimes lies with confidence. The dangerous case is not an empty retrieval. It is a fluent paragraph the documents do not support.
+
+I learned the opposite reflex on production backends. If a lookup returns nothing, something upstream is usually broken, and the caller still needs a defined result. That reflex is right when the answer exists and the system failed to fetch it. It is wrong when the answer does not exist at all.
+
+## No chat box until the system can refuse
+
+ClauseNotebook's rule is blunt: until retrieval can say "I don't have a clause that says that," there is no assistant UI. Abstention is the product constraint, not a fallback I will add after the demo looks good.
+
+I have not shipped that refusal path yet. Stage 1 is ingestion. Saying so is the point. The release gate I will not skip is citation quality: did the span exist, was the version right, did we refuse when we should have. Fluency is not on that list.
+
+The same instinct shows up at work. An uncited reading of a 5G interface stays unverified. Public specs only on this site. Internals stay off it.
+
+---
+
+# Idempotency at the schema
+
+Idempotency that lives only in application logic breaks the moment a second path writes. A retry, a manual script, a new endpoint, and the guarantee everyone assumed was there quietly stops holding.
+
+## Documents
+
+ClauseNotebook registers a PDF by content hash. The same file does not get a second identity unless that is explicit. Manifest writes are atomic, so killing the process cannot leave a half-updated registry. Re-running the CLI is the normal case, not an accident you have to clean up.
+
+## Events
+
+The distributed social backend uses the same idea on the write path. A post that must also become a timeline event goes through a Kafka transactional outbox, so the database commit and the event share a fate. Dual-writing the row and the message is how you get a timeline that never sees a post that "succeeded."
+
+There is no public repository for that system, and I am not claiming a traffic number. The design point is the one I would walk in an interview: the outbox, then the fan-out.
+
+---
+
+# Uptime is a personality
+
+A dropped lookup on a national call-routing system is not a slow page. It is a call that never connects. Uptime, for that service, is a product property.
+
+At C-DOT I rebuilt the PostgreSQL primary-replica cluster behind the IMS/ENUM routing backend: streaming replication, automatic failover, 99.99% uptime, recovery under 30 seconds, and no unplanned outages since that launch. The service does millions of subscriber lookups a day, and the budget on the critical path is sub-second.
+
+## The number next to it
+
+Query-plan analysis and an index redesign made the critical IMS/ENUM queries 40% faster under peak load. Monitoring and alerting moved detection from "a user reported it" to minutes.
+
+The year before, as a research engineer on the same lab's live services, Ubuntu and PostgreSQL held 99.9% availability, and deployment automation cut manual effort by 70%.
+
+None of this is a model story. It is the reason I trust a latency budget, a failover drill, and a metric I can page on more than a demo that worked once.
