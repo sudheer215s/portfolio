@@ -1,14 +1,11 @@
-# Checks every pull request (and every push to main) before it can be merged.
-# Deploying is not done here: Vercel's GitHub integration builds a preview for
-# each PR and deploys production when a PR is merged into main.
+# Checks every push to main. Deploying is not done here.
 name: CI
 
 on:
-  pull_request:
   push:
     branches: [main]
 
-# A newer push to the same PR cancels the older, now-stale run.
+# A newer push to main cancels the older, now-stale run.
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true

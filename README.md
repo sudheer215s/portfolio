@@ -33,6 +33,6 @@ npm run dev
 npm run build
 ```
 
-`public/resume.pdf` is CV5. Do not regenerate it from scratch.
+`public/resume/resume.pdf` is CV5. The preview image is `public/resume/resume.png`. Replace the PDF, then run `npm run resume:image`. Do not regenerate the CV from scratch.
 
 The Q&A index at `backend/index.json` was cleared with the author change. Rebuild it with `backend/scripts/build_index.py` before running `/api/ask`.
