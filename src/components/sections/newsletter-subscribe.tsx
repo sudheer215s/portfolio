@@ -5,7 +5,7 @@ import * as React from "react";
 import { NEWSLETTER_ACTION } from "@/lib/site";
 
 // Buttondown's embed form. The button and fields stay visible.
-// Set NEWSLETTER_ACTION in lib/site.ts when the list exists. Until then the form does not submit.
+// NEWSLETTER_ACTION is the public embed URL for the sudheers list.
 const FORM_ID = "newsletter-subscribe";
 
 export function NewsletterSubscribe({

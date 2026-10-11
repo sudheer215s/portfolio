@@ -22,8 +22,8 @@ export const PERSON = {
   alumniOf: "Maulana Azad National Institute of Technology (MANIT), Bhopal",
 };
 
-/** Buttondown embed URL. Leave empty until the list exists; the form stays on the page. */
-export const NEWSLETTER_ACTION = "";
+/** Buttondown embed form for https://buttondown.com/sudheers. The API key stays off the site. */
+export const NEWSLETTER_ACTION = "https://buttondown.com/api/emails/embed-subscribe/sudheers";
 
 export function personId() {
   return `${SITE_URL}/#person`;
