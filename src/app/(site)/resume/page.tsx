@@ -25,7 +25,7 @@ export default function ResumePage() {
   return (
     <div className="max-w-none py-10">
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-        <h1 id="resume" className="text-[2em] font-normal leading-[1.3] text-foreground/70">
+        <h1 id="resume" className="text-[20px] font-normal leading-normal text-foreground/70">
           Resume
         </h1>
         <div className="flex flex-wrap gap-3">

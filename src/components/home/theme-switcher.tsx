@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { BookOpen, Check, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const sans = "font-[family-name:var(--font-inter),system-ui,sans-serif]";
+const sans = "font-[family-name:var(--font-lora),Georgia,serif]";
 
 const THEMES = [
   { id: "light", label: "Light", Icon: Sun },
@@ -81,7 +81,7 @@ export function ThemeSwitcher() {
                   setTheme(id);
                   setOpen(false);
                 }}
-                className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2.5 py-1.5 text-left text-[14px] leading-6 text-[var(--text)] transition-colors hover:bg-[var(--placeholder-bg)] focus-visible:bg-[var(--placeholder-bg)]"
+                className="flex w-full cursor-pointer items-center gap-2.5 rounded-md px-2.5 py-1.5 text-left text-[16px] font-normal leading-6 text-[var(--text)] transition-colors hover:bg-[var(--placeholder-bg)] focus-visible:bg-[var(--placeholder-bg)]"
               >
                 <Icon className="size-4 text-[var(--muted)]" aria-hidden="true" />
                 {label}

@@ -94,10 +94,10 @@ export function SiteFooter() {
           <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3">
             {FOOTER_COLUMNS.map((column) => (
               <div key={column.title}>
-                <h4 className="mb-3 text-[15px] font-semibold text-muted-foreground">
+                <h4 className="mb-3 text-[18px] font-normal text-muted-foreground">
                   {column.title}
                 </h4>
-                <ul className="space-y-2.5 text-sm">
+                <ul className="space-y-2.5 text-[15px]">
                   {column.links.map((link) => (
                     <li key={link.label}>
                       <FooterItem link={link} />

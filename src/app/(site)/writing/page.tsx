@@ -54,7 +54,7 @@ export default function WritingPage() {
 
   return (
     <div className="max-w-none py-10">
-      <h1 id="writing" className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-4">
+      <h1 id="writing" className="text-[20px] font-normal leading-normal text-foreground/70 mb-4">
         Writing
       </h1>
 
@@ -84,7 +84,7 @@ export default function WritingPage() {
       <section aria-labelledby="personal-writing" className="mt-12">
         <h2
           id="personal-writing"
-          className="scroll-mt-16 text-[1.5625em] font-light tracking-[-0.01em] text-foreground mb-4"
+          className="scroll-mt-16 text-[20px] font-normal leading-normal text-foreground mb-4"
         >
           Personal writing
         </h2>
@@ -109,7 +109,7 @@ export default function WritingPage() {
                 </p>
                 <h3
                   data-toc-skip="true"
-                  className="text-[1.25em] font-normal tracking-[-0.01em] text-foreground mb-2 transition-colors group-hover:text-primary"
+                  className="text-[24px] font-normal leading-snug text-foreground mb-2 transition-colors group-hover:text-primary"
                 >
                   {title}
                 </h3>

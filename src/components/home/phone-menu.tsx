@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react";
 import { NAV_LINKS, isNavLinkActive } from "@/lib/nav";
 import { cn } from "@/lib/utils";
 
-const sans = "font-[family-name:var(--font-inter),system-ui,sans-serif]";
+const sans = "font-[family-name:var(--font-lora),Georgia,serif]";
 
 /**
  * Phones only, on inner pages: a ☰ button at the end of the menu bar that
@@ -60,7 +60,7 @@ export function PhoneMenu() {
                     onClick={() => setOpen(false)}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "block py-2.5 text-[15px] font-medium text-[var(--text)] hover:underline",
+                      "block py-2.5 text-[16px] font-normal text-[var(--text)] hover:underline",
                       active && "underline decoration-2 underline-offset-4"
                     )}
                   >

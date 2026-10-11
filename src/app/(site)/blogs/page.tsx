@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function BlogsPage() {
   return (
     <div className="max-w-none py-10">
-      <h1 id="blogs" className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-2">
+      <h1 id="blogs" className="text-[20px] font-normal leading-normal text-foreground/70 mb-2">
         Blogs
       </h1>
       <p className="text-foreground/65 leading-relaxed mb-8">

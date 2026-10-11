@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="max-w-none py-10">
-      <h1 id="lets-talk" className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-6">
+      <h1 id="lets-talk" className="text-[20px] font-normal leading-normal text-foreground/70 mb-6">
         Let&apos;s talk
       </h1>
       <p className="text-foreground/70 leading-relaxed mb-10">
@@ -31,7 +31,7 @@ export default function ContactPage() {
       <Contact />
 
       <section className="mt-12 max-w-[42rem] border-t border-border pt-8">
-        <h2 data-toc-skip="true" className="text-[1.25em] font-normal text-foreground mb-2">
+        <h2 data-toc-skip="true" className="text-[20px] font-normal leading-normal text-foreground mb-2">
           Prefer to DM?
         </h2>
         <p className="text-foreground/65 leading-relaxed mb-4">

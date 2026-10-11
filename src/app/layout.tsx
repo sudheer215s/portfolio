@@ -1,25 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, Lora, Roboto_Mono } from "next/font/google";
+import { Lora, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { JsonLd } from "@/components/json-ld";
 import { PERSON, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL, personId } from "@/lib/site";
 import { DOMAINS } from "@/data/technical-expertise";
 
-// Loaded once for every page. Lora is the reading text, Inter is the interface.
-// Each is a variable font, so one file covers the weights the pages use.
+// One reading face for the whole site, including the menu. Weight 400 is the
+// text; 500 and 600 stay available for the few labels that are heavier.
 const lora = Lora({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   display: "swap",
   variable: "--font-lora",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-inter",
 });
 
 // Code and small labels only. The first screen does not use it, so it is not preloaded.
@@ -106,7 +99,7 @@ export default function RootLayout({
         <JsonLd data={personJsonLd} />
       </head>
       <body
-        className={`${lora.variable} ${inter.variable} ${robotoMono.variable} antialiased font-sans flex flex-col min-h-screen`}
+        className={`${lora.variable} ${robotoMono.variable} antialiased font-sans flex flex-col min-h-screen`}
       >
         {/* The homepage (app/page.tsx) brings its own header and footer; every
             other page gets the docs chrome from app/(site)/layout.tsx. */}

@@ -22,7 +22,7 @@ export default function Home() {
     <div
       className={cn(
         serif,
-        "home-page flex min-h-screen flex-col bg-[var(--bg)] text-[18px] leading-[1.65] text-[var(--text)] phone:text-[17px]"
+        "home-page flex min-h-screen flex-col bg-[var(--bg)] text-[16px] font-normal leading-[1.5] text-[var(--text)]"
       )}
     >
       {/* Header: the site-wide menu bar (also used on every inner page). */}

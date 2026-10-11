@@ -64,7 +64,7 @@ function FilterPill({
 
 // Titles are plain text; readers follow a post's "Read on …" links instead.
 function PostTitle({ post }: { post: BlogPost }) {
-  return <span className="font-medium text-foreground">{post.title}</span>;
+  return <span className="text-[24px] font-normal leading-snug text-foreground">{post.title}</span>;
 }
 
 export function BlogArchive({ posts }: { posts: BlogPost[] }) {

@@ -80,10 +80,10 @@ export default async function PersonalPostPage({
         <p className="mb-3 font-mono text-xs uppercase tracking-wider text-primary">
           Personal writing
         </p>
-        <h1 className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-4">
+        <h1 className="text-[42px] font-normal leading-none tracking-[-1px] max-[800px]:text-[36px] text-foreground/70 mb-4">
           {frontmatter.title}
         </h1>
-        <p className="text-lg text-foreground/70 leading-relaxed mb-4">{frontmatter.summary}</p>
+        <p className="text-[16px] text-foreground/70 leading-[1.5] mb-4">{frontmatter.summary}</p>
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-muted-foreground">
           {frontmatter.placeholder || !frontmatter.date ? (
             <span>Placeholder · not written yet</span>
@@ -109,7 +109,7 @@ export default async function PersonalPostPage({
               <Link
                 key={p.slug}
                 href={`/writing/personal/${p.slug}`}
-                className="block text-lg text-foreground hover:text-primary transition-colors"
+                className="block text-[16px] leading-[1.5] text-foreground hover:text-primary transition-colors"
               >
                 {p.frontmatter.title} →
               </Link>

@@ -41,7 +41,7 @@ function ExternalLink({ href, label }: { href: string; label: string }) {
 export default function SideProjectsPage() {
   return (
     <div className="max-w-none py-10">
-      <h1 id="projects" className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-2">
+      <h1 id="projects" className="text-[20px] font-normal leading-normal text-foreground/70 mb-2">
         Projects{" "}
         <small className="font-mono text-[0.5em] text-muted-foreground">({SIDE_PROJECTS.length})</small>
       </h1>
@@ -71,7 +71,7 @@ export default function SideProjectsPage() {
                   }
                 : { "data-search-ignore": "" })}
             >
-              <h3 data-toc-skip="true" className="text-[1.25em] font-bold leading-snug mb-2">
+              <h3 data-toc-skip="true" className="text-[24px] font-normal leading-snug mb-2">
                 <ProjectTitle project={project} />
               </h3>
               <p className="text-foreground/65 leading-relaxed mb-3">{project.description}</p>

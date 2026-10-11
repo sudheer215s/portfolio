@@ -97,10 +97,10 @@ export default async function ProjectDetailPage({
       </nav>
 
       <header className="mb-10">
-        <h1 className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-4">
+        <h1 className="text-[42px] font-normal leading-none tracking-[-1px] max-[800px]:text-[36px] text-foreground/70 mb-4">
           {frontmatter.title}
         </h1>
-        <p className="text-lg text-foreground/70 leading-relaxed">
+        <p className="text-[16px] text-foreground/70 leading-[1.5]">
           {frontmatter.summary}
         </p>
 
@@ -166,7 +166,7 @@ export default async function ProjectDetailPage({
             <Link
               key={p.slug}
               href={`/projects/${p.slug}`}
-              className="block text-lg text-foreground hover:text-primary transition-colors"
+              className="block text-[16px] leading-[1.5] text-foreground hover:text-primary transition-colors"
             >
               {p.frontmatter.title} →
             </Link>

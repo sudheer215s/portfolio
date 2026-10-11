@@ -15,7 +15,7 @@ export default function ProjectsPage() {
 
   return (
     <div className="max-w-none py-10">
-      <h1 id="projects" className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-6">
+      <h1 id="projects" className="text-[20px] font-normal leading-normal text-foreground/70 mb-6">
         Projects
       </h1>
       <p className="text-foreground/70 leading-relaxed mb-10">
@@ -33,7 +33,7 @@ export default function ProjectsPage() {
               className="group flex flex-col gap-2"
             >
               <div className="flex items-baseline justify-between gap-4">
-                <h2 className="text-[1.25em] font-normal tracking-[-0.01em] text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
+                <h2 className="text-[24px] font-normal leading-snug text-foreground group-hover:text-primary transition-colors flex items-center gap-2">
                   {project.frontmatter.title}
                   <ArrowUpRight
                     className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity"

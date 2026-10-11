@@ -18,8 +18,8 @@ export function HomeFooter() {
     <footer className="mt-14 border-t border-[var(--border)]">
       <div className={cn(container, "grid grid-cols-[2fr_3fr] items-start gap-8 pt-10 pb-14 phone:grid-cols-1")}>
         <div>
-          <h2 className={cn(sans, "mb-3 text-[15px] font-semibold text-[var(--muted)]")}>Socials</h2>
-          <ul className="space-y-2 text-[16px]">
+          <h2 className={cn(sans, "mb-3 text-[18px] font-normal text-[var(--muted)]")}>Socials</h2>
+          <ul className="space-y-2 text-[15px]">
             {home.socials.map(({ type, label, href }) => {
               const Icon = SOCIAL_ICONS[type];
               return (
@@ -43,7 +43,7 @@ export function HomeFooter() {
         </div>
 
         <div>
-          <h2 className={cn(sans, "text-[15px] font-semibold text-[var(--muted)]")}>Directly DM</h2>
+          <h2 className={cn(sans, "text-[18px] font-normal text-[var(--muted)]")}>Directly DM</h2>
           <p className={cn(sans, "mb-3 text-[15px] text-[var(--muted)]")}>Fastest way to reach me.</p>
           <div className="flex gap-3 tiny:flex-col">
             <CopyEmailButton email={home.email} className={primaryButton} />

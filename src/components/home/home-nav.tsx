@@ -26,7 +26,7 @@ const NAV_ITEMS = [
   { label: "Resume", href: "/resume" },
 ];
 
-const sans = "font-[family-name:var(--font-inter),system-ui,sans-serif]";
+const sans = "font-[family-name:var(--font-lora),Georgia,serif]";
 const navLink = "whitespace-nowrap text-[var(--text)] hover:underline";
 
 /**
@@ -70,7 +70,7 @@ export function HomeNav({ githubUrl, searchIndex }: { githubUrl: string; searchI
         aria-label="Main"
         className={cn(
           sans,
-          "ml-auto flex items-center gap-5 text-[15px] font-medium",
+          "ml-auto flex items-center gap-5 text-[16px] font-normal",
           "phone:order-last phone:ml-0 phone:w-full phone:flex-wrap phone:gap-x-3 phone:gap-y-2 phone:pb-3"
         )}
       >
@@ -108,7 +108,7 @@ export function HomeNav({ githubUrl, searchIndex }: { githubUrl: string; searchI
         onFocus={() => prepareSearch()}
         className={cn(
           sans,
-          "inline-flex h-9 shrink-0 cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 text-[15px] font-medium text-[var(--muted)] transition-colors hover:border-[var(--border-hover)] hover:text-[var(--text)]",
+          "inline-flex h-9 shrink-0 cursor-pointer items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 text-[16px] font-normal text-[var(--muted)] transition-colors hover:border-[var(--border-hover)] hover:text-[var(--text)]",
           "phone:ml-auto phone:w-9 phone:justify-center phone:px-0"
         )}
       >

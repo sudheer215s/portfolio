@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function UserManualPage() {
   return (
     <div className="max-w-none py-10">
-      <h1 id="user-manual" className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-6">
+      <h1 id="user-manual" className="text-[20px] font-normal leading-normal text-foreground/70 mb-6">
         User Manual
       </h1>
 

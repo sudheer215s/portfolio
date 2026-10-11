@@ -36,7 +36,7 @@ export function HomeBlogs() {
         />
         <Link
           href="/blogs"
-          className={cn(sans, "text-[15px] font-medium text-[var(--link)] hover:text-[var(--link-hover)] hover:underline")}
+          className={cn(sans, "text-[16px] font-normal text-[var(--link)] hover:text-[var(--link-hover)] hover:underline")}
         >
           All posts →
         </Link>
@@ -47,14 +47,17 @@ export function HomeBlogs() {
             <a
               href={post.href}
               {...(isExternal(post.href) ? newTab : {})}
-              className="group flex min-h-12 items-baseline justify-between gap-6 py-3.5 phone:flex-col phone:gap-1"
+              className={cn(
+                sans,
+                "home-blog-copy group flex items-baseline justify-between gap-6 py-3.5 phone:flex-col phone:gap-1"
+              )}
             >
-              <span className="line-clamp-2 text-[var(--link)] group-hover:text-[var(--link-hover)] group-hover:underline">
+              <span className="home-blog-copy text-[var(--link)] group-hover:text-[var(--link-hover)] group-hover:underline">
                 {post.title}
               </span>
               <time
                 dateTime={post.date}
-                className={cn(sans, "shrink-0 whitespace-nowrap text-[15px] text-[var(--muted)] tabular-nums")}
+                className="home-blog-copy shrink-0 whitespace-nowrap text-[var(--muted)]"
               >
                 {formatDate(post.date)}
               </time>

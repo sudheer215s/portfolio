@@ -92,7 +92,7 @@ const SECTIONS: Section[] = [
 export default function BooksPage() {
   return (
     <div className="max-w-none py-10">
-      <h1 id="books" className="text-[2em] font-normal leading-[1.3] text-foreground/70 mb-8">
+      <h1 id="books" className="text-[20px] font-normal leading-normal text-foreground/70 mb-8">
         Books
       </h1>
 
@@ -100,7 +100,7 @@ export default function BooksPage() {
         <section key={section.id} className={i > 0 ? "mt-10" : undefined}>
           <h2
             id={section.id}
-            className="text-[1.5625em] font-light tracking-[-0.01em] text-foreground mb-3"
+            className="text-[20px] font-normal leading-normal text-foreground mb-3"
           >
             {section.title}
           </h2>

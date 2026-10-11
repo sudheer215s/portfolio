@@ -29,12 +29,12 @@ export function HomeHeader({
   return (
     <header
       className={cn(
-        "home-page relative bg-[var(--bg)] font-[family-name:var(--font-lora),Georgia,serif] text-[18px] leading-[1.65] text-[var(--text)] [--radius:0.25rem] phone:text-[17px]",
+        "home-page relative bg-[var(--bg)] font-[family-name:var(--font-lora),Georgia,serif] text-[16px] font-normal leading-[1.5] text-[var(--text)] [--radius:0.25rem]",
         "border-t-[3px] border-b border-t-[var(--topbar)] border-b-[var(--border)]"
       )}
     >
       <div className={cn(container, "flex h-16 items-center gap-5 phone:h-auto phone:flex-wrap")}>
-        <Name className="whitespace-nowrap text-[26px] font-medium leading-none phone:flex phone:h-16 phone:items-center">
+        <Name className="whitespace-nowrap text-[26px] font-normal leading-none phone:flex phone:h-16 phone:items-center">
           <Link href="/" className="text-[var(--text)] no-underline">
             {home.name}
           </Link>
