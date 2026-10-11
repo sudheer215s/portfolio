@@ -33,9 +33,9 @@ export function HomeHeader({
         "border-t-[3px] border-b border-t-[var(--topbar)] border-b-[var(--border)]"
       )}
     >
-      <div className={cn(container, "flex h-16 items-center gap-5 phone:h-auto phone:flex-wrap")}>
-        <Name className="whitespace-nowrap text-[26px] font-normal leading-none phone:flex phone:h-16 phone:items-center">
-          <Link href="/" className="text-[var(--text)] no-underline">
+      <div className={cn(container, "flex h-[54px] items-center gap-5 phone:h-auto phone:flex-wrap")}>
+        <Name className="whitespace-nowrap text-[26px] font-normal leading-[54px] phone:flex phone:h-[54px] phone:items-center">
+          <Link href="/" className="text-[var(--text)] hover:underline">
             {home.name}
           </Link>
         </Name>

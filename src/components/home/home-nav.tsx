@@ -70,8 +70,8 @@ export function HomeNav({ githubUrl, searchIndex }: { githubUrl: string; searchI
         aria-label="Main"
         className={cn(
           sans,
-          "ml-auto flex items-center gap-5 text-[16px] font-normal",
-          "phone:order-last phone:ml-0 phone:w-full phone:flex-wrap phone:gap-x-3 phone:gap-y-2 phone:pb-3"
+          "ml-auto flex items-center gap-5 text-[16px] font-normal leading-[54px]",
+          "phone:order-last phone:ml-0 phone:w-full phone:flex-wrap phone:gap-x-3 phone:gap-y-2 phone:pb-3 phone:leading-[1.5]"
         )}
       >
         {NAV_ITEMS.map(({ label, href }) => {
